@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RISE選手を直接応援。LINEから簡単に投げ銭で好きな選手をサポートできます。">
+    <title>RISE LINE投げ銭 | 好きな選手を、直接応援。</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+:root {
+    --rise-black: #000000;
+    --rise-red: #e60012;
+    --rise-red-dark: #b30010;
+    --rise-red-light: #ff1a2e;
+    --gold: #ffd700;
+    --gold-dark: #d4af37;
+    --white: #ffffff;
+    --gray-light: #f5f5f5;
+    --gray-medium: #cccccc;
+    --gray-dark: #333333;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: var(--rise-black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ヒーローセクション */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+    overflow: hidden;
+}
+
+.fighters-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    animation: slideLeft 40s linear infinite;
+}
+
+.fighters-slider-track {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.fighter-card-mini {
+    width: 200px;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    flex-shrink: 0;
+    filter: grayscale(30%) brightness(0.8);
+}
+
+@keyframes slideLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.hero-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(212, 175, 55, 0.3) 100%);
+    z-index: 1;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(230, 0, 18, 0.2) 0%, transparent 50%);
+    animation: pulse 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rise-logo-container {
+    margin-bottom: 30px;
+}
+
+.rise-logo-img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--gold))
+            drop-shadow(0 0 40px var(--gold))
+            drop-shadow(0 0 60px var(--gold))
+            drop-shadow(0 0 80px var(--gold));
+    animation: glowImage 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowImage {
+    from {
+        filter: drop-shadow(0 0 20px var(--gold))
+                drop-shadow(0 0 40px var(--gold))
+                drop-shadow(0 0 60px var(--gold));
+    }
+    to {
+        filter: drop-shadow(0 0 30px var(--gold))
+                drop-shadow(0 0 60px var(--gold))
+                drop-shadow(0 0 90px var(--gold))
+                drop-shadow(0 0 120px var(--gold));
+    }
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hero-title-line1,
+.hero-title-line2,
+.hero-title-line3 {
+    display: block;
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.hero-title-line1 { animation-delay: 0.2s; }
+.hero-title-line2 { 
+    animation-delay: 0.4s; 
+    background: linear-gradient(135deg, var(--gold) 0%, var(--rise-red) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-title-line3 { animation-delay: 0.6s; }
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    animation: fadeIn 1s ease-out 0.8s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 0.9; }
+}
+
+.hero-announcement {
+    margin-bottom: 30px;
+    padding: 25px 35px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(212, 175, 55, 0.1) 100%);
+    border: 3px solid var(--gold);
+    border-radius: 15px;
+    animation: fadeIn 1s ease-out 1s forwards, pulse 2s ease-in-out infinite;
+    opacity: 0;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.hero-announcement.coming-soon {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 140, 0, 0.15) 100%);
+    border: 3px solid #FFA500;
+    box-shadow: 0 0 40px rgba(255, 165, 0, 0.5);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 50px rgba(255, 165, 0, 0.6);
+    }
+}
+
+.announcement-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
+    color: var(--rise-black);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+}
+
+.announcement-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 12px;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    letter-spacing: 1px;
+}
+
+.announcement-detail {
+    font-size: 15px;
+    font-weight: 500;
+    color: #FFA500;
+    opacity: 0.95;
+    line-height: 1.6;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    min-height: 56px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.primary-cta {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--rise-black);
+}
+
+.primary-cta:hover {
+    background: linear-gradient(135deg, #ffe44d 0%, var(--gold) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+}
+
+.secondary-cta {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.secondary-cta:hover {
+    background: var(--white);
+    color: var(--rise-black);
+    transform: translateY(-3px);
+}
+
+.large {
+    padding: 20px 50px;
+    font-size: 20px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
+.scroll-indicator span {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--white));
+}
+
+.scroll-indicator p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+    40% { transform: translateX(-50%) translateY(-10px); }
+    60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 18px;
+    opacity: 0.8;
+    margin-bottom: 60px;
+}
+
+/* 特徴セクション */
+.features {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    position: relative;
+}
+
+.features::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border-radius: 50%;
+    font-size: 36px;
+    color: var(--rise-black);
+    transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon {
+    transform: rotateY(360deg);
+}
+
+.feature-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+/* 選手ギャラリー */
+.fighters-gallery {
+    padding: 100px 20px;
+    background: linear-gradient(to bottom, var(--gray-dark) 0%, var(--rise-black) 100%);
+    overflow: hidden;
+}
+
+.fighters-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.fighter-showcase-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 3px solid transparent;
+}
+
+.fighter-showcase-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--gold);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+}
+
+.fighter-showcase-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fighter-showcase-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+    padding: 30px 20px 20px;
+    transition: var(--transition);
+}
+
+.fighter-showcase-card:hover .fighter-showcase-overlay {
+    background: linear-gradient(to top, rgba(212, 175, 55, 0.95) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.fighter-showcase-name {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 5px;
+    color: var(--white);
+}
+
+.fighter-showcase-card:hover .fighter-showcase-name {
+    color: var(--rise-black);
+}
+
+.fighter-showcase-record {
+    font-size: 14px;
+    opacity: 0.8;
+    color: var(--white);
+}
+
+.fighter-showcase-card:hover .fighter-showcase-record {
+    color: var(--rise-black);
+    opacity: 1;
+}
+
+.fighter-showcase-support {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 215, 0, 0.9);
+    color: var(--rise-black);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: var(--transition);
+}
+
+.fighter-showcase-card:hover .fighter-showcase-support {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 利用の流れ */
+.flow {
+    padding: 100px 20px;
+    background: var(--rise-black);
+}
+
+.flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flow-step {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    border-left: 5px solid var(--gold);
+    transition: var(--transition);
+}
+
+.flow-step:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(10px);
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border-radius: 50%;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--rise-black);
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-icon {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 15px;
+}
+
+.step-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.step-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.step-arrow {
+    text-align: center;
+    font-size: 30px;
+    color: var(--gold);
+    animation: arrowBounce 2s infinite;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+}
+
+/* メリット */
+.benefits {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    position: relative;
+}
+
+.benefits::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.06) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.benefit-item {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.benefit-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 215, 0, 0.1);
+    border: 2px solid var(--gold);
+    border-radius: 15px;
+    font-size: 32px;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+.benefit-item:hover .benefit-icon {
+    background: var(--gold);
+    color: var(--rise-black);
+    transform: scale(1.1) rotate(5deg);
+}
+
+.benefit-item h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.benefit-item p {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/* 重要な注意事項 */
+.important-notes {
+    padding: 100px 20px;
+    background: var(--rise-black);
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.note-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid;
+    transition: var(--transition);
+}
+
+.note-card.warning {
+    border-color: #ff9800;
+}
+
+.note-card.info {
+    border-color: var(--gold);
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.note-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 28px;
+}
+
+.note-card.warning .note-icon {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ff9800;
+}
+
+.note-card.info .note-icon {
+    background: rgba(255, 215, 0, 0.2);
+    color: var(--gold);
+}
+
+.note-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.note-card p {
+    font-size: 15px;
+    line-height: 1.8;
+    opacity: 0.9;
+    text-align: center;
+}
+
+/* FAQ */
+.faq {
+    padding: 100px 20px;
+    background: linear-gradient(to bottom, var(--rise-black) 0%, var(--gray-dark) 100%);
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 60px auto 0;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px;
+    cursor: pointer;
+    transition: var(--transition);
+    min-height: 60px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.faq-question:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.faq-question h3 {
+    font-size: 18px;
+    font-weight: 700;
+    flex: 1;
+}
+
+.faq-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    border-radius: 50%;
+    font-size: 14px;
+    color: var(--rise-black);
+    transition: var(--transition);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+}
+
+.faq-answer p {
+    padding: 0 30px 25px;
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+/* お問い合わせ */
+.contact {
+    padding: 100px 20px;
+    background: var(--rise-black);
+}
+
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.contact-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+}
+
+.contact-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    border-radius: 50%;
+    font-size: 32px;
+    color: var(--rise-black);
+}
+
+.contact-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.contact-card a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: var(--transition);
+    padding: 8px;
+    display: inline-block;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.contact-card a:hover {
+    color: #ffe44d;
+}
+
+.contact-phone {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 5px;
+}
+
+.contact-hours {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* CTA セクション */
+.cta {
+    padding: 100px 20px;
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+    text-align: center;
+}
+
+.cta-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: var(--rise-black);
+}
+
+.cta-subtitle {
+    font-size: 20px;
+    margin-bottom: 50px;
+    color: var(--rise-black);
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta .cta-button {
+    background: var(--rise-black);
+    color: var(--gold);
+}
+
+.cta .cta-button:hover {
+    background: var(--gray-dark);
+    color: var(--white);
+}
+
+/* フッター */
+.footer {
+    background: var(--rise-black);
+    padding: 60px 20px 30px;
+    border-top: 3px solid var(--gold);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo-img {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px var(--gold))
+            drop-shadow(0 0 20px var(--gold));
+    transition: var(--transition);
+}
+
+.footer-logo-img:hover {
+    filter: drop-shadow(0 0 15px var(--gold))
+            drop-shadow(0 0 30px var(--gold))
+            drop-shadow(0 0 45px var(--gold));
+}
+
+.footer-logo p {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 16px;
+    transition: var(--transition);
+    padding: 8px 12px;
+    display: inline-block;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-social a {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 20px;
+    transition: var(--transition);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.footer-social a:hover {
+    background: var(--gold);
+    color: var(--rise-black);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+/* トップへ戻るボタン */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    background: var(--gold);
+    color: var(--rise-black);
+    border: none;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background: #ffe44d;
+    transform: translateY(-3px);
+}
+
+/* レスポンシブ - スマホ最適化 */
+@media (max-width: 768px) {
+    /* 基本設定 */
+    body {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+        min-height: 90vh;
+    }
+
+    .rise-logo-img {
+        max-width: 280px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+        gap: 8px;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    .hero-announcement {
+        margin-bottom: 24px;
+        padding: 20px 20px;
+    }
+
+    .announcement-badge {
+        font-size: 12px;
+        padding: 6px 16px;
+        margin-bottom: 10px;
+    }
+
+    .announcement-text {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .announcement-detail {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .scroll-indicator {
+        bottom: 20px;
+    }
+
+    /* セクションタイトル */
+    .section-title {
+        font-size: 24px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+
+    /* セクションパディング */
+    .features,
+    .flow,
+    .benefits,
+    .important-notes,
+    .faq,
+    .contact,
+    .cta {
+        padding: 60px 16px;
+    }
+
+    /* グリッドレイアウト */
+    .features-grid,
+    .benefits-grid,
+    .notes-grid,
+    .contact-methods {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
+    /* 選手ギャラリー */
+    .fighters-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+        margin-top: 40px;
+    }
+
+    .fighter-showcase-name {
+        font-size: 16px;
+    }
+
+    .fighter-showcase-record {
+        font-size: 12px;
+    }
+
+    .fighter-showcase-support {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+
+    /* カード */
+    .feature-card,
+    .note-card,
+    .contact-card {
+        padding: 24px 20px;
+    }
+
+    .feature-card h3,
+    .note-card h3,
+    .contact-card h3 {
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .feature-card p,
+    .note-card p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    /* アイコン */
+    .feature-icon,
+    .note-icon,
+    .contact-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+        margin-bottom: 16px;
+    }
+
+    /* 利用の流れ */
+    .flow-steps {
+        gap: 20px;
+    }
+
+    .flow-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 16px;
+    }
+
+    .step-number {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+        margin-bottom: 16px;
+    }
+
+    .step-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .step-content h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .step-content p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .step-arrow {
+        font-size: 24px;
+        margin: 10px 0;
+    }
+
+    /* メリット */
+    .benefit-item {
+        padding: 24px 16px;
+    }
+
+    .benefit-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 26px;
+        margin-bottom: 16px;
+    }
+
+    .benefit-item h3 {
+        font-size: 17px;
+        margin-bottom: 8px;
+    }
+
+    .benefit-item p {
+        font-size: 14px;
+    }
+
+    /* FAQ */
+    .faq-list {
+        margin-top: 40px;
+    }
+
+    .faq-item {
+        margin-bottom: 16px;
+    }
+
+    .faq-question {
+        padding: 20px 16px;
+    }
+
+    .faq-question h3 {
+        font-size: 16px;
+        line-height: 1.6;
+        padding-right: 10px;
+    }
+
+    .faq-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+        flex-shrink: 0;
+    }
+
+    .faq-answer p {
+        padding: 0 16px 20px;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    /* お問い合わせ */
+    .contact-phone {
+        font-size: 22px;
+    }
+
+    .contact-hours {
+        font-size: 13px;
+    }
+
+    .contact-card a {
+        font-size: 16px;
+        word-break: break-all;
+    }
+
+    /* CTA */
+    .cta-title {
+        font-size: 24px;
+        line-height: 1.4;
+        margin-bottom: 16px;
+    }
+
+    .cta-subtitle {
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .cta-button {
+        padding: 16px 24px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .cta-button.large {
+        padding: 18px 24px;
+        font-size: 17px;
+        max-width: 100%;
+    }
+
+    /* フッター */
+    .footer {
+        padding: 40px 16px 24px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 32px;
+        margin-bottom: 32px;
+    }
+
+    .footer-logo-img {
+        max-width: 200px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .footer-links a {
+        font-size: 15px;
+    }
+
+    .footer-social {
+        gap: 12px;
+    }
+
+    .footer-social a {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .footer-bottom p {
+        font-size: 13px;
+    }
+
+    /* トップへ戻るボタン */
+    .back-to-top {
+        bottom: 16px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+}
+
+/* 小さいスマホ用（iPhone SE等） */
+@media (max-width: 375px) {
+    .rise-logo-img {
+        max-width: 240px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 14px;
+    }
+
+    .hero-announcement {
+        padding: 14px 16px;
+    }
+
+    .announcement-text {
+        font-size: 16px;
+    }
+
+    .announcement-detail {
+        font-size: 13px;
+    }
+
+    .section-title {
+        font-size: 22px;
+    }
+
+    .cta-button {
+        padding: 14px 20px;
+        font-size: 15px;
+    }
+
+    .feature-card,
+    .note-card,
+    .flow-step,
+    .contact-card {
+        padding: 20px 16px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="fighters-slider">
+                <div class="fighters-slider-track">
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/05/%E9%BE%8D%E5%BF%83.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E8%8A%B1%E5%B2%A1%E7%AB%9C.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2025/05/%E5%A4%A7%EF%A8%91%E5%AD%94%E7%A8%80.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E5%AE%89%E6%9C%AC%E6%99%B4%E7%BF%94.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/%E4%B8%AD%E6%9D%91%E5%AF%9B-1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/Shiratori_HP.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2024/04/%E3%83%A1%E3%82%A4%E3%82%BD%E3%83%B3.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E6%B5%B7%E4%BA%BA_230701_4.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/05/Kenta_Nanbara_HP.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2023/04/%E5%AE%AE%E6%9C%AC1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/11/%E3%83%86%E3%83%83%E3%82%B5%E3%83%BB%E3%83%87%E3%83%BB%E3%82%B3%E3%83%A0-1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/08/%E8%81%96%E6%84%9B_230729_2.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/YA-MAN-230825_3.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2025/05/%E5%A4%A7%EF%A8%91%E4%B8%80%E8%B2%B4.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/%E5%BF%97%E6%9C%97_231215.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/05/%E9%BE%8D%E5%BF%83.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E8%8A%B1%E5%B2%A1%E7%AB%9C.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2025/05/%E5%A4%A7%EF%A8%91%E5%AD%94%E7%A8%80.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E5%AE%89%E6%9C%AC%E6%99%B4%E7%BF%94.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/%E4%B8%AD%E6%9D%91%E5%AF%9B-1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/Shiratori_HP.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2024/04/%E3%83%A1%E3%82%A4%E3%82%BD%E3%83%B3.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/06/%E6%B5%B7%E4%BA%BA_230701_4.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/05/Kenta_Nanbara_HP.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2023/04/%E5%AE%AE%E6%9C%AC1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/11/%E3%83%86%E3%83%83%E3%82%B5%E3%83%BB%E3%83%87%E3%83%BB%E3%82%B3%E3%83%A0-1.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/08/%E8%81%96%E6%84%9B_230729_2.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/YA-MAN-230825_3.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2025/05/%E5%A4%A7%EF%A8%91%E4%B8%80%E8%B2%B4.jpg'); background-position: center 20%;"></div>
+                    <div class="fighter-card-mini" style="background-image: url('https://rise-rc.com/wp/wp-content/uploads/2022/04/%E5%BF%97%E6%9C%97_231215.jpg'); background-position: center 20%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="rise-logo-container">
+                <img src="https://rise-rc.com/wp/wp-content/themes/rise-theme/image/logo.png" alt="RISE - Extreme Fight Game" class="rise-logo-img">
+            </div>
+            <h2 class="hero-title">
+                <span class="hero-title-line1">好きな選手を、</span>
+                <span class="hero-title-line2">直接応援。</span>
+                <span class="hero-title-line3">LINEで投げ銭。</span>
+            </h2>
+            <p class="hero-subtitle">あなたの応援が、選手の力になる。<br>RISEの選手へLINEから簡単に投げ銭できるようになりました。</p>
+            <div class="hero-announcement coming-soon">
+                <p class="announcement-badge">📣 COMING SOON</p>
+                <p class="announcement-text">2025年12月開始予定</p>
+                <p class="announcement-detail">※現在はまだご利用いただけません。開始時にLINEでお知らせいたします。</p>
+            </div>
+            <a href="https://lin.ee/mlHwpJP" class="cta-button primary-cta" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-line"></i> RISE公式LINEで最新情報を受け取る
+            </a>
+            <div class="scroll-indicator">
+                <span></span>
+                <p>Scroll</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">投げ銭システムの特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fab fa-line"></i>
+                    </div>
+                    <h3>LINEで簡単応援</h3>
+                    <p>普段使っているLINEから、数タップで選手への投げ銭が完了。アプリのダウンロードや会員登録は不要です。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>選手を選んで応援</h3>
+                    <p>LINEショップから好きな選手を選択。あなたの応援が選手に直接届きます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>金額・数量を自由に</h3>
+                    <p>応援したい金額と数量を自由に選択。少額から気軽に応援できます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>簡単決済</h3>
+                    <p>クレジットカードや電子決済で即座に決済完了。スマートに応援できます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>安心・安全</h3>
+                    <p>LINE公式の決済システムを使用。セキュアな環境で安心して応援できます。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>選手の活動を支援</h3>
+                    <p>あなたの投げ銭が選手の練習や活動の支えになります。夢を応援しましょう。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 利用の流れ -->
+    <section class="flow">
+        <div class="container">
+            <h2 class="section-title">投げ銭の流れ</h2>
+            <p class="section-subtitle">LINE公式アカウント登録から選手への応援まで簡単ステップ</p>
+            <div class="flow-steps">
+                <div class="flow-step">
+                    <div class="step-number">
+                        <span>1</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fab fa-line"></i>
+                        </div>
+                        <h3>LINE友だち追加</h3>
+                        <p>LINEで「RISE」を検索、またはQRコードから公式アカウントを友だち追加。すぐに始められます。</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">
+                        <span>2</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>LINEショップから選択</h3>
+                        <p>リッチメニューから「ショップ」を選択。投げ銭商品の中から応援したい選手を選びます。</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">
+                        <span>3</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h3>金額・数量を決定</h3>
+                        <p>応援したい金額と数量を選択。購入者情報を入力し、クレジットカードや電子決済で決済完了。</p>
+                    </div>
+                </div>
+                <div class="step-arrow">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">
+                        <span>4</span>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>応援完了！</h3>
+                        <p>投げ銭が完了しました！あなたの応援がRISEと選手を支えます。引き続き応援をお願いします！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- メリット -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">あなたの投げ銭が選手の夢を叶える</h2>
+            <p class="section-subtitle">小さな応援が、大きな力に変わる</p>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>感動を直接届ける</h3>
+                    <p>試合を見て心が震えた瞬間、すぐに選手に気持ちを伝えられます。あなたの「ありがとう」が選手のモチベーションになります。</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>500円から始まる応援</h3>
+                    <p>500円から気軽に応援できます。金額の大小ではなく、あなたの応援する気持ちが大切です。継続的な応援で選手を支えましょう。</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>RISEの挑戦を支える</h3>
+                    <p>あなたの投げ銭がRISEの発展と選手育成に活用されます。日本のキックボクシング界を盛り上げる一員として、応援しましょう。</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>共に成長する喜び</h3>
+                    <p>応援した選手がリングで輝く姿を見る喜び。共に戦い、共に成長する。ファンと選手の絆がここにあります。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 重要な注意事項 -->
+    <section class="important-notes">
+        <div class="container">
+            <h2 class="section-title">重要な注意事項</h2>
+            <div class="notes-grid">
+                <div class="note-card info">
+                    <div class="note-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>返金不可</h3>
+                    <p>投げ銭は応援の意思表示として処理されるため、購入後の返金・キャンセルはできません。金額と選手をよくご確認ください。</p>
+                </div>
+                <div class="note-card info">
+                    <div class="note-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>選手の確認</h3>
+                    <p>投げ銭する選手の名前を必ず確認してから決済してください。間違った選手への投げ銭は変更できません。</p>
+                </div>
+                <div class="note-card info">
+                    <div class="note-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>購入履歴の確認</h3>
+                    <p>LINEショップの購入履歴から、いつでも過去の投げ銭履歴を確認できます。応援の記録として残ります。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">よくある質問</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>投げ銭はいくらから可能ですか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>最低500円から投げ銭が可能です。LINEショップに掲載されている金額から選択できます。少額から気軽に応援できるよう、複数の金額帯をご用意しています。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>選手に直接届くのですか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>投げ銭はRISEの運営と選手育成のために活用されます。具体的な配分方法については、今後公式サイトで発表いたします。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>複数の選手に投げ銭できますか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>可能です。LINEショップから複数の選手を選択し、それぞれに投げ銭することができます。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>投げ銭のキャンセルはできますか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>決済完了後のキャンセル・返金は不可となっております。選手名と金額を必ずご確認の上、決済を完了してください。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>匿名で投げ銭できますか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>購入者情報は決済に必要ですが、選手には投げ銭総額のみが通知され、個人情報は公開されません。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>支払い方法は何がありますか？</h3>
+                        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>現在はクレジットカードのみ対応しています。今後、LINE Payなど他の決済方法を拡充していく予定です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">12月の開始をお楽しみに</h2>
+            <p class="cta-subtitle">開始時には公式LINEでお知らせします。<br>今すぐ友だち追加して、最新情報をチェック！</p>
+            <div class="cta-buttons">
+                <a href="https://lin.ee/mlHwpJP" class="cta-button large" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-line"></i> RISE公式LINEを友だち追加
+                </a>
+                <a href="https://rise-rc.com/champion" class="cta-button large" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-users"></i> 選手一覧を見る
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせ -->
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">お問い合わせ</h2>
+            <p class="section-subtitle">LINE投げ銭に関するご質問は、以下までお気軽にお問い合わせください</p>
+            <div class="contact-methods">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>メールでのお問い合わせ</h3>
+                    <a href="mailto:info@rise-rc.com">info@rise-rc.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>電話でのお問い合わせ</h3>
+                    <p class="contact-phone">03-5980-7409</p>
+                    <p class="contact-hours">平日 10:00〜18:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://rise-rc.com/wp/wp-content/themes/rise-theme/image/logo.png" alt="RISE" class="footer-logo-img">
+                    <p>Extreme Fight Game</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://rise-rc.com/" target="_blank" rel="noopener noreferrer">公式サイト</a>
+                    <a href="https://rise-rc.com/schedule" target="_blank" rel="noopener noreferrer">大会スケジュール</a>
+                    <a href="https://rise-rc.com/news" target="_blank" rel="noopener noreferrer">ニュース</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://twitter.com/RISE_2003" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.instagram.com/rise_2003official/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/user/RISEonTV" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https://lin.ee/mlHwpJP" target="_blank" rel="noopener noreferrer" aria-label="LINE">
+                        <i class="fab fa-line"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RISE. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- トップへ戻るボタン -->
+    <button id="back-to-top" class="back-to-top" aria-label="トップへ戻る">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+// DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // スムーズスクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // FAQアコーディオン
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // 他のFAQを閉じる
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            // 現在のFAQをトグル
+            item.classList.toggle('active');
+        });
+    });
+
+    // トップへ戻るボタン
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // スクロールアニメーション（要素が表示されたらフェードイン）
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // アニメーション対象の要素
+    const animateElements = document.querySelectorAll('.feature-card, .flow-step, .benefit-item, .faq-item');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
+
+    console.log('RISE LINE投げ銭LP - 選手への応援をお待ちしています 💛🥊✨');
+});
+    </script>
+</body>
+</html>
